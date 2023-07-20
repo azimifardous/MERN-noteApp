@@ -1,10 +1,12 @@
 import LoginForm from "./components/loginForm";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import RegisterForm from "./components/registerForm";
+import Dashboard from "./components/dashboard";
 
 function App() {
   return (
     <Switch>
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/login" component={LoginForm} />
       <Route path="/register" component={RegisterForm} />
       <Redirect from="/" to="/login" />

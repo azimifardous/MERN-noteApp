@@ -9,6 +9,36 @@
   }
 }
 
+@layer components {
+  .btn {
+    @apply md:hidden m-6 text-2xl text-customGray hover:bg-customGreen hover:text-white p-2 pl-4 pr-4 transition-all rounded-lg;
+  }
+
+  .btn.hide {
+    @apply hidden;
+  }
+
+  .sidebar {
+    @apply max-md:fixed max-md:top-0 max-md:left-[-250px] w-60 border-r-2 border-r-customGray bg-customGray h-screen flex flex-col items-center transition-all;
+  }
+
+  .sidebar.active {
+    @apply max-md:left-0 z-10;
+  }
+
+  .overlay.active {
+    @apply fixed top-0 left-0 w-full h-full bg-black opacity-50 z-0;
+  }
+
+  .list {
+    @apply opacity-0 transition-all;
+  }
+
+  .list.active {
+    @apply opacity-100;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -20,4 +50,5 @@
 #root {
   width: 100vw;
   height: 100vh;
+  background-color: #f9fafb;
 }
