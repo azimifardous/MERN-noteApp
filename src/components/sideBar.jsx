@@ -4,7 +4,7 @@ import SidebarItems from "./sidebarItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = ({ onGetColor }) => {
+const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -33,7 +33,7 @@ const Sidebar = ({ onGetColor }) => {
       <div className={`overlay ${isSidebarOpen ? "active" : ""}`} />
       <aside className={`sidebar ${isSidebarOpen ? "active" : ""}`}>
         <SidebarHeader />
-        <SidebarItems onGetColor={onGetColor} />
+        <SidebarItems />
       </aside>
     </Fragment>
   );

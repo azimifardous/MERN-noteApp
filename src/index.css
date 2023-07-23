@@ -10,6 +10,90 @@
 }
 
 @layer components {
+  .addNote {
+    @apply flex items-center mb-5 max-md:absolute max-md:top-16 max-md:left-[-55px] max-md:flex-col;
+  }
+
+  .addNoteBtn {
+    @apply mr-5 max-md:mr-0 bg-customGray h-8 w-8 shadow-md rounded-full text-white active:scale-90 transition-all;
+  }
+
+  .logout {
+    @apply flex flex-row justify-center items-center hover:bg-customGreen p-2 cursor-pointer transition-all mt-2 rounded-full relative top-[250px] active:scale-90;
+  }
+
+  .colorSelect {
+    @apply w-5 h-5 rounded-full shadow-md transition-all active:scale-90;
+  }
+
+  .color {
+    @apply flex flex-row justify-center items-center p-4;
+  }
+
+  .sideBarItem {
+    @apply flex flex-row justify-center items-center hover:bg-customGreen p-2 px-6 mb-2 cursor-pointer transition-all rounded-full active:scale-90;
+  }
+
+  .sideBarItem.active {
+    @apply bg-customGreen hover:bg-none;
+  }
+
+  .emptyNote {
+    @apply text-center select-none text-gray-400 w-full absolute h-full top-[300px] left-0;
+  }
+
+  .notesList {
+    @apply mt-5 grid gap-4 sm:grid-cols-2 w-full lg:grid-cols-3 xl:grid-cols-4;
+  }
+
+  .notesDiv {
+    @apply absolute left-20 top-5 w-full px-10 text-black md:w-2/3 md:left-72 md:p-0 lg:left-80 lg:w-3/4;
+  }
+
+  .form {
+    @apply relative flex text-customGray antialiased flex-col justify-center overflow-hidden py-6 sm:py-12;
+  }
+
+  .formDiv {
+    @apply flex flex-col h-full w-full justify-center items-center;
+  }
+
+  .clearBtn {
+    @apply absolute bottom-5 text-white h-8 w-8 text-sm bg-customGray rounded-full right-5 active:scale-90 transition-all;
+  }
+
+  .textArea {
+    @apply bg-transparent w-[250px] h-[220px] rounded-xl p-4 resize-none shadow-none focus:outline outline-none border-none focus:border-none;
+  }
+
+  .deleteBtn {
+    @apply bg-red-500 text-white absolute left-[-8px] top-[-210px] w-7 h-7 text-sm text-center rounded-full transition-all active:scale-90;
+  }
+
+  .note {
+    @apply w-[250px] h-[220px] rounded-xl shadow-md;
+  }
+
+  .error {
+    @apply mt-2 text-xs text-red-600 dark:text-red-400;
+  }
+
+  .authInput {
+    @apply border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md;
+  }
+
+  .authLabel {
+    @apply block font-semibold mt-3;
+  }
+
+  .header {
+    @apply font-pacifico text-3xl text-customRed;
+  }
+
+  .authBtn {
+    @apply mt-4 bg-gray-600 text-white py-2 px-6 rounded-md hover:bg-gray-700 disabled:bg-gray-400;
+  }
+
   .btn {
     @apply md:hidden m-6 text-2xl text-customGray hover:bg-customGreen hover:text-white p-2 pl-4 pr-4 transition-all rounded-lg;
   }
@@ -19,19 +103,19 @@
   }
 
   .sidebar {
-    @apply fixed max-md:top-0 max-md:left-[-250px] w-60 border-r-2 border-r-customGray bg-customGray h-screen flex flex-col items-center transition-all;
+    @apply fixed max-md:top-0 max-md:left-[-260px] w-60 m-4 h-modal rounded-2xl py-4 border-r-2 border-r-customGray bg-customGray flex flex-col items-center transition-all;
   }
 
   .sidebar.active {
-    @apply max-md:left-0 z-10;
+    @apply max-md:left-0 z-20;
   }
 
   .overlay.active {
-    @apply fixed top-0 left-0 w-full h-full bg-black opacity-50 z-0;
+    @apply fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10;
   }
 
   .list {
-    @apply opacity-0 transition-all;
+    @apply flex items-center max-md:flex-col opacity-0 transition-all;
   }
 
   .list.active {

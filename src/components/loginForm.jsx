@@ -23,12 +23,9 @@ class LoginForm extends Form {
 
   render() {
     return (
-      <div className="flex flex-col h-full w-full justify-center items-center">
+      <div className="formDiv">
         <Header />
-        <form
-          onSubmit={this.handleSubmit}
-          className="relative flex text-customGray antialiased flex-col justify-center overflow-hidden py-6 sm:py-12"
-        >
+        <form onSubmit={this.handleSubmit} className="form">
           <div className="relative py-3 sm:w-96 mx-auto text-center">
             <span className="text-2xl font-light ">Login to your account</span>
             <div className="mt-4 bg-white shadow-md rounded-lg text-left">

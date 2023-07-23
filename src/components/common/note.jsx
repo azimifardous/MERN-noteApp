@@ -54,17 +54,14 @@ const Note = ({ color, onDelete }) => {
   }, []);
 
   return (
-    <li className={`w-[250px] h-[220px] rounded-xl shadow-md bg-${color}`}>
+    <li className={`note ${color}`}>
       <span
         className="relative"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
         {isMouseOnNote && !isFocused && (
-          <button
-            onClick={onDelete}
-            className="bg-red-500 text-white absolute left-[-8px] top-[-210px] w-7 h-7 text-sm text-center rounded-full transition-all active:scale-90"
-          >
+          <button onClick={onDelete} className="deleteBtn">
             <FontAwesomeIcon icon={faXmark} />
           </button>
         )}
@@ -73,13 +70,11 @@ const Note = ({ color, onDelete }) => {
           value={text}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
-          className="bg-transparent w-[250px] h-[220px] rounded-xl p-4 resize-none shadow-none focus:outline outline-none border-none focus:border-none"
+          className="textArea"
         />
         <button
           onClick={handleClear}
-          className={`absolute bottom-5 text-white h-8 w-8 text-sm bg-black rounded-full right-5 active:scale-90 transition-all ${
-            isFocused ? "hidden" : ""
-          }`}
+          className={`clearBtn ${isFocused ? "hidden" : ""}`}
         >
           <FontAwesomeIcon icon={faTrash} />
         </button>

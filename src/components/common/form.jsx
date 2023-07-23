@@ -52,11 +52,7 @@ class Form extends Component {
 
   renderButton = (label) => {
     return (
-      <button
-        disabled={this.validate()}
-        type="submit"
-        className="mt-4 bg-gray-600 text-white py-2 px-6 rounded-md hover:bg-gray-700 disabled:bg-gray-400"
-      >
+      <button disabled={this.validate()} type="submit" className="authBtn">
         {label}
       </button>
     );

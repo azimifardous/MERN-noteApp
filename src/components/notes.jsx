@@ -1,22 +1,50 @@
-import React, { Fragment } from "react";
+import React, { Component, Fragment } from "react";
+import NoteBtn from "./common/noteBtn";
+import Note from "./common/note";
+import { v4 as uuidv4 } from "uuid";
 
-const Notes = ({ notes }) => {
-  return (
-    <div className="absolute left-10 top-24 w-full px-10 text-black md:w-2/3 md:left-64 md:p-0 lg:left-80 lg:w-3/4">
-      {notes.length > 0 ? (
-        <Fragment>
-          <h1 className="text-4xl font-bold">Notes</h1>
-          <ul className="mt-5 grid gap-4 sm:grid-cols-2 w-full lg:grid-cols-3 xl:grid-cols-4">
-            {notes.map((note) => note)}
-          </ul>
-        </Fragment>
-      ) : (
-        <div className="text-center select-none text-gray-400 w-full absolute h-full top-[250px] right-10">
-          Add a note...
-        </div>
-      )}
-    </div>
-  );
-};
+class Notes extends Component {
+  state = {
+    notes: [],
+  };
+
+  handleAddNote = (color) => {
+    const notes = this.state.notes;
+    let id = "";
+    notes.push(
+      <Note
+        key={(id = uuidv4())}
+        color={color}
+        onDelete={() => this.handleDelete(id)}
+      />
+    );
+    this.setState({ notes });
+  };
+
+  handleDelete = (id) => {
+    const notes = [...this.state.notes];
+    const index = notes.findIndex((note) => note.key === id);
+    notes.splice(index, 1);
+    this.setState({ notes });
+  };
+
+  render() {
+    return (
+      <div className="notesDiv">
+        <NoteBtn onAddNote={this.handleAddNote} />
+        {this.state.notes.length > 0 ? (
+          <Fragment>
+            <h1 className="text-4xl font-bold">Notes</h1>
+            <ul className="notesList">
+              {this.state.notes.map((note) => note)}
+            </ul>
+          </Fragment>
+        ) : (
+          <div className="emptyNote">Add a note...</div>
+        )}
+      </div>
+    );
+  }
+}
 
 export default Notes;
