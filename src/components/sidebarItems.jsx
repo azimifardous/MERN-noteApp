@@ -8,9 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const SidebarItems = () => {
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState(
+    localStorage.getItem("activeItem") || "home"
+  );
 
   const handleItemClick = (item) => {
+    localStorage.setItem("activeItem", item);
     setActiveItem(item);
   };
 
