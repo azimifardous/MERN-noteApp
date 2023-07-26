@@ -1,12 +1,15 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Sidebar from "./sideBar";
+import UserContext from "./context/userContext";
+import useUser from "./hooks/useUser";
 
 const Dashboard = ({ children }) => {
+  const user = useUser();
   return (
-    <Fragment>
+    <UserContext.Provider value={user}>
       <Sidebar />
       {children}
-    </Fragment>
+    </UserContext.Provider>
   );
 };
 

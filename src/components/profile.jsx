@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import UserContext from "./context/userContext";
 
 const Profile = () => {
+  const { avatar, getNewAvatar, name, email } = useContext(UserContext);
   return (
     <div className="w-full sm:text-xl">
       <h1 className="absolute top-8 left-36 md:left-[300px]">My Profile</h1>
       <form className="w-full flex flex-col justify-center items-center md:w-auto md:absolute md:top-[50px] md:left-[350px] lg:left-[650px]">
         <div className="relative">
           <img
-            src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80"
+            src={avatar}
             alt="avatar"
             className="rounded-full w-24 h-24 mt-5 border-white shadow-md border-4"
           />
           <button
+            onClick={getNewAvatar}
             type="button"
             className="absolute left-[70px] bottom-0 bg-customGreen h-6 w-6 rounded-full text-white text-sm shadow-sm active:scale-90 transition-all"
           >
@@ -26,7 +29,7 @@ const Profile = () => {
           </label>
           <input
             type="text"
-            value={"Ahmad Azimi"}
+            defaultValue={name}
             className="authInput w-[300px] mb-4 text-sm"
           />
         </div>
@@ -34,7 +37,11 @@ const Profile = () => {
           <label htmlFor="email" className="authLabel text-sm">
             Email Address
           </label>
-          <input type="email" className="authInput w-[300px] mb-4 text-sm" />
+          <input
+            type="email"
+            defaultValue={email}
+            className="authInput w-[300px] mb-4 text-sm"
+          />
         </div>
         <div>
           <label htmlFor="password" className="authLabel text-sm">

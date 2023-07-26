@@ -14,6 +14,11 @@ async function login(user) {
     localStorage.setItem('userId', data.userId);
 };
 
+function generateNewAvatar() {
+    const userId = localStorage.getItem('userId');
+    return httpService.put(`${apiEndpoint}/users/${userId}`)
+}
+
 function loginWithJWT(jwt) {
     localStorage.setItem('token', jwt);
 }
@@ -47,5 +52,6 @@ export default {
     getCurrentUser,
     loginWithJWT,
     getJWT,
-    getUser
+    getUser,
+    generateNewAvatar
 }

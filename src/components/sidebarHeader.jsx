@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from "react";
-import authService from "../services/authService";
+import React, { useContext } from "react";
+import UserContext from "./context/userContext";
 
 const SidebarHeader = () => {
-  const [avatar, setAvatar] = useState("");
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    getUserProp("avatar", setAvatar);
-    getUserProp("name", setName);
-  });
-
-  const getUserProp = async (userProp, setUserProp) => {
-    const { data: user } = await authService.getUser();
-    setUserProp(user[userProp]);
-  };
-
+  const { avatar, name } = useContext(UserContext);
   return (
     <div className="flex flex-col items-center">
       <h1 className="font-pacifico text-white mt-5 text-2xl">Dashboard</h1>
