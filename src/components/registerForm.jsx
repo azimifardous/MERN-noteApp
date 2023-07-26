@@ -1,9 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Form from "./common/form";
-import { Link } from "react-router-dom";
 import Joi from "joi-browser";
 import Header from "./common/header";
 import Footer from "./common/footer";
+import { Link, Redirect } from "react-router-dom";
+import { register } from "../services/registerService";
+import authService from "../services/authService";
 
 class RegisterForm extends Form {
   state = {
@@ -17,12 +19,19 @@ class RegisterForm extends Form {
     name: Joi.string().max(64).required().label("Name"),
   };
 
-  doSubmit = () => {
-    // call the server
-    console.log("submitted");
+  doSubmit = async () => {
+    try {
+      const res = await register(this.state.data);
+      authService.loginWithJWT(res.headers["x-auth-token"]);
+    } catch (ex) {
+      const errors = { ...this.state.errors };
+      errors.name = ex.response.data;
+      this.setState({ errors });
+    }
   };
 
   render() {
+    if (authService.getCurrentUser()) return <Redirect to="/home" />;
     return (
       <div className="formDiv">
         <Header />

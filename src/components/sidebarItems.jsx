@@ -36,9 +36,9 @@ const SidebarItems = () => {
       </li>
       <li className="logout">
         <FontAwesomeIcon icon={faRightFromBracket} />
-        <a href="#" className="ml-5">
+        <Link to="/logout" className="ml-5">
           Log out
-        </a>
+        </Link>
       </li>
     </ul>
   );

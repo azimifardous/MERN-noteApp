@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Form from "./common/form";
 import Joi from "joi-browser";
 import Header from "./common/header";
 import Footer from "./common/footer";
+import authService from "../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -16,12 +17,21 @@ class LoginForm extends Form {
     password: Joi.string().required().label("Password"),
   };
 
-  doSubmit = () => {
-    // call the server
-    console.log("logged in.");
+  doSubmit = async () => {
+    try {
+      await authService.login(this.state.data);
+      window.location = "/home";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.email = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
+    if (authService.getCurrentUser()) return <Redirect to="/home" />;
     return (
       <div className="formDiv">
         <Header />
