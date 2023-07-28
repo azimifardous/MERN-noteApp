@@ -43,11 +43,11 @@
   }
 
   .notesList {
-    @apply mt-5 grid gap-4 sm:grid-cols-2 w-full lg:grid-cols-3 xl:grid-cols-4;
+    @apply mt-5 ml-4 grid gap-4 sm:grid-cols-2 w-full lg:grid-cols-3 xl:grid-cols-4;
   }
 
   .notesDiv {
-    @apply absolute left-20 top-5 w-full px-10 text-black md:w-2/3 md:left-72 md:p-0 lg:left-80 lg:w-3/4;
+    @apply absolute left-20 w-[80%] top-5 text-black md:w-2/3 md:left-72 md:p-0 lg:left-80 lg:w-3/4;
   }
 
   .form {
@@ -95,7 +95,7 @@
   }
 
   .btn {
-    @apply md:hidden m-6 text-2xl text-customGray hover:bg-customGreen hover:text-white p-2 pl-4 pr-4 transition-all rounded-lg;
+    @apply md:hidden m-6 text-2xl absolute left-0 text-customGray hover:bg-customGreen hover:text-white p-2 pl-4 pr-4 transition-all rounded-lg;
   }
 
   .btn.hide {
@@ -131,8 +131,11 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #f9fafb;
+}
+
 #root {
   width: 100vw;
   height: 100vh;
-  background-color: #f9fafb;
 }

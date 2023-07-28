@@ -34,7 +34,7 @@ class Notes extends Component {
         <NoteBtn onAddNote={this.handleAddNote} />
         {this.state.notes.length > 0 ? (
           <Fragment>
-            <h1 className="text-4xl font-bold">Notes</h1>
+            <h1 className="text-4xl font-bold mt-2 ml-4">Notes</h1>
             <ul className="notesList">
               {this.state.notes.map((note) => note)}
             </ul>

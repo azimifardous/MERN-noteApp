@@ -21,6 +21,7 @@ const httpService = {
     put: Axios.put,
     delete: Axios.delete,
     post: Axios.post,
+    patch: Axios.patch,
     setJWT: setJWT
 }
 

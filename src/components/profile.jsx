@@ -1,67 +1,76 @@
-import React, { useContext } from "react";
+import React, { Fragment } from "react";
+import ProfileForm from "./profileForm";
+import UserContext from "./context/userContext";
+import registerService from "../services/registerService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
-import UserContext from "./context/userContext";
 
-const Profile = () => {
-  const { avatar, getNewAvatar, name, email } = useContext(UserContext);
-  return (
-    <div className="w-full sm:text-xl">
-      <h1 className="absolute top-8 left-36 md:left-[300px]">My Profile</h1>
-      <form className="w-full flex flex-col justify-center items-center md:w-auto md:absolute md:top-[50px] md:left-[350px] lg:left-[650px]">
-        <div className="relative">
-          <img
-            src={avatar}
-            alt="avatar"
-            className="rounded-full w-24 h-24 mt-5 border-white shadow-md border-4"
-          />
-          <button
-            onClick={getNewAvatar}
-            type="button"
-            className="absolute left-[70px] bottom-0 bg-customGreen h-6 w-6 rounded-full text-white text-sm shadow-sm active:scale-90 transition-all"
+class Profile extends ProfileForm {
+  static contextType = UserContext;
+
+  doSubmit = async () => {
+    try {
+      await registerService.updateUser(this.state.data);
+      window.location = "/";
+    } catch (ex) {
+      const errors = { ...this.state.errors };
+      errors.currentPassword = ex.response.data;
+      this.setState({ errors });
+    }
+  };
+
+  handleDelete = async () => {
+    try {
+      await registerService.deleteUser();
+      window.location = "/logout";
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  render() {
+    const { name, email, avatar, getNewAvatar } = this.context;
+    return (
+      <Fragment>
+        <h1 className="absolute top-9 left-36 md:left-[300px] sm:text-xl">
+          My Profile
+        </h1>
+        <div className="flex flex-col justify-center items-center pt-20 md:ml-[250px]">
+          <div className="relative">
+            <img
+              src={avatar}
+              alt="avatar"
+              className="rounded-full w-24 h-24 mt-5 border-white bg-white border-4 shadow-lg"
+            />
+            <button
+              onClick={getNewAvatar}
+              className="absolute bg-customGreen rounded-full h-5 w-5 text-xs text-white pt-[1px] right-[4px] bottom-[3px] active:scale-90 transition-all"
+            >
+              <FontAwesomeIcon icon={faRotateRight} />
+            </button>
+          </div>
+          <form
+            onSubmit={this.handleSubmit}
+            className="w-full px-8 py-5 md:w-2/3"
           >
-            <FontAwesomeIcon icon={faRotateRight} />
-          </button>
+            {this.renderInput("name", "Full Name", name)}
+            {this.renderInput("email", "Email Address", email, "email")}
+            {this.renderInput(
+              "currentPassword",
+              "Current Password",
+              "",
+              "password"
+            )}
+            {this.renderInput("newPassword", "New Password", "", "password")}
+            <div className="flex justify-between">
+              {this.renderButton("Save")}
+              {this.renderDeleteBtn()}
+            </div>
+          </form>
         </div>
-        <div>
-          <label htmlFor="name" className="authLabel text-sm">
-            Full Name
-          </label>
-          <input
-            type="text"
-            defaultValue={name}
-            className="authInput w-[300px] mb-4 text-sm"
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="authLabel text-sm">
-            Email Address
-          </label>
-          <input
-            type="email"
-            defaultValue={email}
-            className="authInput w-[300px] mb-4 text-sm"
-          />
-        </div>
-        <div>
-          <label htmlFor="password" className="authLabel text-sm">
-            Current Password
-          </label>
-          <input type="password" className="authInput w-[300px] mb-4 text-sm" />
-          <label htmlFor="password" className="authLabel text-sm">
-            New Password
-          </label>
-          <input type="password" className="authInput w-[300px] mb-4 text-sm" />
-        </div>
-        <div className="w-full flex justify-center items-center text-sm">
-          <button className="authBtn mr-2">Save</button>
-          <button className="authBtn bg-transparent text-customRed hover:bg-transparent">
-            Delete Account
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-};
+      </Fragment>
+    );
+  }
+}
 
 export default Profile;

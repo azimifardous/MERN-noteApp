@@ -9,7 +9,7 @@ import {
 
 const SidebarItems = () => {
   const [activeItem, setActiveItem] = useState(
-    localStorage.getItem("activeItem") || "home"
+    "home" || localStorage.getItem("activeItem")
   );
 
   const handleItemClick = (item) => {

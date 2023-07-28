@@ -3,9 +3,9 @@ import Form from "./common/form";
 import Joi from "joi-browser";
 import Header from "./common/header";
 import Footer from "./common/footer";
-import { Link, Redirect } from "react-router-dom";
-import { register } from "../services/registerService";
+import registerService from "../services/registerService";
 import authService from "../services/authService";
+import { Link, Redirect } from "react-router-dom";
 
 class RegisterForm extends Form {
   state = {
@@ -21,8 +21,9 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     try {
-      const res = await register(this.state.data);
-      authService.loginWithJWT(res.headers["x-auth-token"]);
+      const res = await registerService.register(this.state.data);
+      authService.loginWithJWT(res.headers["x-auth-token"], res.data._id);
+      window.location = "/";
     } catch (ex) {
       const errors = { ...this.state.errors };
       errors.name = ex.response.data;

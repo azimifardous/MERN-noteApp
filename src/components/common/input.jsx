@@ -6,7 +6,7 @@ const Input = ({ label, error, ...rest }) => {
       <label className="authLabel"> {label} </label>
       <input {...rest} className="authInput" />
       {error && (
-        <p id="standard_error_help" className="error">
+        <p className="error">
           <span className="font-medium">Oh, snapp!</span> {error}
         </p>
       )}

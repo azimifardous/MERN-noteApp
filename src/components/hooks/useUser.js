@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import authService from "../../services/authService";
+import registerService from "../../services/registerService";
+
 
 const useUser = () => {
     const [avatar, setAvatar] = useState('');
@@ -13,12 +14,12 @@ const useUser = () => {
     }, []);
 
     const getUserProp = async (userProp, setUserProp) => {
-        const { data: user } = await authService.getUser();
+        const { data: user } = await registerService.getUser();
         setUserProp(user[userProp]);
     };
 
     const getNewAvatar = async () => {
-        const { data: user } = await authService.generateNewAvatar();
+        const { data: user } = await registerService.generateNewAvatar();
         setAvatar(user.avatar)
     };
 

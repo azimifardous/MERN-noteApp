@@ -14,23 +14,15 @@ async function login(user) {
     localStorage.setItem('userId', data.userId);
 };
 
-function generateNewAvatar() {
-    const userId = localStorage.getItem('userId');
-    return httpService.put(`${apiEndpoint}/users/${userId}`)
-}
-
-function loginWithJWT(jwt) {
+function loginWithJWT(jwt, id) {
     localStorage.setItem('token', jwt);
+    localStorage.setItem("userId", id);
 }
 
 function getJWT() {
     return localStorage.getItem('token');
 }
 
-async function getUser() {
-    const userId = localStorage.getItem('userId');
-    return await httpService.get(`${apiEndpoint}/users/${userId}`)
-}
 
 function logout() {
     localStorage.removeItem("token");
@@ -52,6 +44,4 @@ export default {
     getCurrentUser,
     loginWithJWT,
     getJWT,
-    getUser,
-    generateNewAvatar
 }
