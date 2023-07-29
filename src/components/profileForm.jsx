@@ -22,8 +22,8 @@ class ProfileForm extends Form {
     return (
       <button
         type="button"
-        onClick={this.handleDelete}
-        className="authBtn mt-0 p-0 bg-transparent text-red-500 hover:bg-transparent hover:underline"
+        onClick={this.handleOpeningModal}
+        className="authBtn deleteAcc"
       >
         Delete Account
       </button>

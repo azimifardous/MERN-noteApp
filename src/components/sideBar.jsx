@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
-import SidebarHeader from "./sidebarHeader";
-import SidebarItems from "./sidebarItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import SidebarHeader from "./sidebarHeader";
+import SidebarItems from "./sidebarItems";
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

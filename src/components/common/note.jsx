@@ -1,15 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
+import noteService from "../../services/noteService";
 
-const Note = ({ color, onDelete }) => {
+const Note = ({ color, onDelete, id }) => {
   const textAreaRef = useRef(null);
   const [text, setText] = useState("");
   const [isMouseOnNote, setIsMouseOnNote] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isExceedingLimit, setIsExceedingLimit] = useState(false);
   const maxChars = 100;
   let prevText = "";
+
+  const autoSave = async () => {
+    try {
+      await noteService.updateNote({
+        _id: id,
+        content: text,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -39,10 +53,20 @@ const Note = ({ color, onDelete }) => {
   const handleMouseOut = () => setIsMouseOnNote(false);
 
   useEffect(() => {
+    const autoSaveInterval = setInterval(autoSave, 5000);
+
+    return () => {
+      clearInterval(autoSaveInterval);
+    };
+  }, [text]);
+
+  useEffect(() => {
     const textareaElement = textAreaRef.current;
 
     const handleFocus = () => setIsFocused(true);
     const handleBlur = () => setIsFocused(false);
+
+    getNoteContent();
 
     textareaElement.addEventListener("focus", handleFocus);
     textareaElement.addEventListener("blur", handleBlur);
@@ -52,6 +76,11 @@ const Note = ({ color, onDelete }) => {
       textareaElement.removeEventListener("blur", handleBlur);
     };
   }, []);
+
+  const getNoteContent = async () => {
+    const { data: note } = await noteService.getNote(id);
+    setText(note.content);
+  };
 
   return (
     <li className={`note ${color}`}>
