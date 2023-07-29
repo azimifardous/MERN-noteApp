@@ -9,14 +9,11 @@ async function login(user) {
         email: user.email,
         password: user.password
     });
-
     localStorage.setItem('token', data.token);
-    localStorage.setItem('userId', data.userId);
 };
 
-function loginWithJWT(jwt, id) {
+function loginWithJWT(jwt) {
     localStorage.setItem('token', jwt);
-    localStorage.setItem("userId", id);
 }
 
 function getJWT() {
@@ -26,7 +23,6 @@ function getJWT() {
 
 function logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem('userId');
 }
 
 function getCurrentUser() {

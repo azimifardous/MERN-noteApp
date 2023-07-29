@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import NoteBtn from "./common/noteBtn";
 import Note from "./common/note";
 import noteService from "../services/noteService";
-import { v4 as uuidv4 } from "uuid";
 
 class Notes extends Component {
   state = {

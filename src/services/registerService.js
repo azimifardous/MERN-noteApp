@@ -1,43 +1,36 @@
 import httpService from './httpService';
 import { apiEndpoint } from './config';
+import authService from './authService';
+
+const { _id: currentUserId } = authService.getCurrentUser() || "";
+const usersAPI = `${apiEndpoint}/users`;
 
 function register(user) {
-    return httpService.post(`${apiEndpoint}/users`, {
+    return httpService.post(usersAPI, {
         name: user.name,
         email: user.email,
         password: user.password
     })
 }
 
-async function getUser() {
-    const userId = localStorage.getItem('userId');
-    return await httpService.get(`${apiEndpoint}/users/${userId}`)
-}
-
 function updateUser(user) {
-    const userId = localStorage.getItem('userId');
-    return httpService.put(`${apiEndpoint}/users/${userId}`, {
-        name: user.name,
-        email: user.email,
+    return httpService.put(`${usersAPI}/${currentUserId}`, {
         currentPassword: user.currentPassword,
         newPassword: user.newPassword
     })
 }
 
 function deleteUser() {
-    const userId = localStorage.getItem('userId');
-    return httpService.delete(`${apiEndpoint}/users/${userId}`)
+    return httpService.delete(`${usersAPI}/${currentUserId}`)
 }
 
 function generateNewAvatar() {
-    const userId = localStorage.getItem('userId');
-    return httpService.patch(`${apiEndpoint}/users/${userId}/avatar`)
+    return httpService.patch(`${usersAPI}/${currentUserId}/avatar`)
 }
 
 export default {
     register,
     generateNewAvatar,
-    getUser,
     updateUser,
     deleteUser
 }

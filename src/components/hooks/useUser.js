@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import registerService from "../../services/registerService";
+import authService from "../../services/authService";
 
 
 const useUser = () => {
@@ -13,8 +14,8 @@ const useUser = () => {
         getUserProp("email", setEmail);
     }, []);
 
-    const getUserProp = async (userProp, setUserProp) => {
-        const { data: user } = await registerService.getUser();
+    const getUserProp = (userProp, setUserProp) => {
+        const user = authService.getCurrentUser();
         setUserProp(user[userProp]);
     };
 
