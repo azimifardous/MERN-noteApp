@@ -5,11 +5,12 @@ import jwtDecode from 'jwt-decode';
 httpService.setJWT(getJWT());
 
 async function login(user) {
-    const { data } = await httpService.post(`${apiEndpoint}/auth`, {
+    const { data: jwt } = await httpService.post(`${apiEndpoint}/auth`, {
         email: user.email,
         password: user.password
     });
-    localStorage.setItem('token', data.token);
+
+    localStorage.setItem('token', jwt);
 };
 
 function loginWithJWT(jwt) {
@@ -23,6 +24,7 @@ function getJWT() {
 
 function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem('activeItem');
 }
 
 function getCurrentUser() {

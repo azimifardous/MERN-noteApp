@@ -9,7 +9,6 @@ const Note = ({ color, onDelete, id }) => {
   const [text, setText] = useState("");
   const [isMouseOnNote, setIsMouseOnNote] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [isExceedingLimit, setIsExceedingLimit] = useState(false);
   const maxChars = 100;
   let prevText = "";
