@@ -1,4 +1,7 @@
 import Axios from 'axios';
+import { process } from 'joi-browser';
+
+Axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 Axios.interceptors.response.use(null, error => {
     const expectedErr = error.response
