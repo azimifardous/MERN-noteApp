@@ -1,12 +1,10 @@
 import httpService from './httpService';
-import { apiEndpoint } from './config';
 import authService from './authService';
 
 const { _id: currentUserId } = authService.getCurrentUser() || "";
-const usersAPI = `${apiEndpoint}/users`;
 
 function register(user) {
-    return httpService.post(usersAPI, {
+    return httpService.post("/users", {
         name: user.name,
         email: user.email,
         password: user.password
@@ -14,18 +12,18 @@ function register(user) {
 }
 
 function updateUser(user) {
-    return httpService.put(`${usersAPI}/${currentUserId}`, {
+    return httpService.put(`/users/${currentUserId}`, {
         currentPassword: user.currentPassword,
         newPassword: user.newPassword
     })
 }
 
 function deleteUser() {
-    return httpService.delete(`${usersAPI}/${currentUserId}`)
+    return httpService.delete(`/users/${currentUserId}`)
 }
 
 function generateNewAvatar() {
-    return httpService.patch(`${usersAPI}/${currentUserId}/avatar`)
+    return httpService.patch(`/users/${currentUserId}/avatar`)
 }
 
 export default {

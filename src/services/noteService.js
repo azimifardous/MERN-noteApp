@@ -1,29 +1,26 @@
 import httpService from './httpService';
-import { apiEndpoint } from './config';
-
-const notesAPI = `${apiEndpoint}/notes`;
 
 function getNotes() {
-    return httpService.get(notesAPI);
+    return httpService.get("/notes");
 }
 
 function getNote(id) {
-    return httpService.get(`${notesAPI}/${id}`);
+    return httpService.get(`/notes/${id}`);
 }
 
 function addNote(note) {
-    return httpService.post(notesAPI, {
+    return httpService.post("/notes", {
         content: note.content,
         color: note.color
     })
 }
 
 function deleteNote(id) {
-    return httpService.delete(`${notesAPI}/${id}`)
+    return httpService.delete(`/notes/${id}`)
 }
 
 function updateNote(note) {
-    return httpService.patch(`${notesAPI}/${note._id}`, {
+    return httpService.patch(`/notes/${note._id}`, {
         content: note.content
     })
 }
