@@ -1,5 +1,4 @@
 import React from "react";
-import Form from "./common/form";
 import Joi from "joi-browser";
 import Header from "./common/header";
 import Footer from "./common/footer";
@@ -7,7 +6,7 @@ import registerService from "../services/registerService";
 import authService from "../services/authService";
 import { Link, Redirect } from "react-router-dom";
 
-class RegisterForm extends Form {
+class RegisterForm {
   state = {
     data: { email: "", password: "", name: "" },
     errors: {},

@@ -1,8 +1,7 @@
 import React from "react";
-import Form from "./common/form";
 import Joi from "joi-browser";
 
-class ProfileForm extends Form {
+class ProfileForm {
   schema = {
     name: Joi.string(),
     email: Joi.string().email(),
