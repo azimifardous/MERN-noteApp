@@ -3,7 +3,7 @@ import useUser from "./hooks/useUser";
 import LoadingSkeleton from "./loadingSkeleton";
 
 const SidebarHeader = () => {
-  const { user, isLoading } = useUser();
+  const { data: user, isLoading } = useUser();
 
   if (isLoading) return <LoadingSkeleton />;
 

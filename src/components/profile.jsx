@@ -116,7 +116,7 @@ const Profile = () => {
     });
   };
 
-  const { user, isLoading } = useUser();
+  const { data: user, isLoading } = useUser();
   if (isLoading) return <p>Loading...</p>;
 
   const { avatar, name, email } = user.data;

@@ -1,5 +1,6 @@
 import Joi from "joi-browser";
 
+// validate the whole form with the given "JOI" schema 
 const validate = (data, schema) => {
     const options = { abortEarly: false };
     const { error } = Joi.validate(data, schema, options);
@@ -15,6 +16,7 @@ const validate = (data, schema) => {
     return errors;
 };
 
+// validate a single property (Input) with the given "JOI" schema
 const validateProperty = (input, schema) => {
     const { name, value } = input;
     const obj = { [name]: value };

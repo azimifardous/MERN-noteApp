@@ -3,7 +3,6 @@ import RegisterForm from "./components/registerForm";
 import Profile from "./components/profile";
 import Notes from "./components/notes";
 import Dashboard from './components/dashboard';
-import AuthLayout from "./components/authLayout";
 import Logout from "./components/logout";
 import ProtectedRoute from "./components/common/protectedRoute";
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -22,16 +21,8 @@ function App() {
           <Profile />
         </Dashboard>
       </ProtectedRoute>
-      <Route path='/login'>
-        <AuthLayout>
-          <LoginForm />
-        </AuthLayout>
-      </Route>
-      <Route path='/register'>
-        <AuthLayout>
-          <RegisterForm />
-        </AuthLayout>
-      </Route>
+      <Route path='/login' component={LoginForm} />
+      <Route path='/register' component={RegisterForm} />
       <Redirect from="/" to="/home" />
     </Switch >
   );
