@@ -8,6 +8,7 @@ import useForm from "./hooks/useForm";
 import Input from "./common/input";
 import { Link, Redirect } from "react-router-dom";
 import { validate } from "./utils/validateForm";
+import { useMutation } from "@tanstack/react-query";
 
 const RegisterForm = () => {
   const userData = {
@@ -30,16 +31,24 @@ const RegisterForm = () => {
     schema
   );
 
+  const mutation = useMutation(registerService.register);
+
   const doSubmit = async () => {
-    try {
-      const res = await registerService.register(this.state.data);
-      authService.loginWithJWT(res.headers["x-auth-token"]);
-      window.location = "/";
-    } catch (ex) {
-      const errors = { ...this.state.errors };
-      errors.name = ex.response.data;
-      this.setState({ errors });
-    }
+    mutation.mutate(data.user, {
+      onSuccess: (res) => {
+        authService.loginWithJWT(res.headers["x-auth-token"]);
+        window.location = "/";
+      },
+      onError: (ex) => {
+        setData((prevData) => ({
+          ...prevData,
+          errors: {
+            ...prevData.errors,
+            name: ex.response.data,
+          },
+        }));
+      },
+    });
   };
 
   const isUserLoggedIn = authService.getCurrentUser();
@@ -79,11 +88,11 @@ const RegisterForm = () => {
               />
               <div className="flex justify-between items-baseline">
                 <button
-                  disabled={validate(data.user, schema)}
+                  disabled={validate(data.user, schema) || mutation.isLoading}
                   type="submit"
                   className="authBtn"
                 >
-                  Sign up
+                  {mutation.isLoading ? "Signing up..." : "Sign up"}
                 </button>
                 <Link to="/login" className="text-sm hover:underline">
                   Log in
