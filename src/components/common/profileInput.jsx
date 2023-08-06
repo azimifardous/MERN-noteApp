@@ -8,7 +8,7 @@ const Input = ({ data, onChange, name, label, value, type = "text" }) => {
         className="authInput disabled:bg-gray-100"
         name={name}
         type={type}
-        value={user[name] || value}
+        value={value === "" ? user[name] : value}
         onChange={onChange}
         disabled={value ? true : false}
       />

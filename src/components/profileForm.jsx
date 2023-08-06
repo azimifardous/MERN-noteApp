@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "./common/button";
 import Input from "./common/profileInput";
 import useUser from "./hooks/useUser";
 import DeleteBtn from "./common/deleteBtn";
 import Joi from "joi-browser";
 import useForm from "./hooks/useForm";
-import { validate } from "joi-browser";
 
 const ProfileForm = ({ onOpenModal }) => {
   const userData = {
@@ -22,7 +21,7 @@ const ProfileForm = ({ onOpenModal }) => {
     name: Joi.string(),
     email: Joi.string().email(),
     currentPassword: Joi.string().required().label("Current Password"),
-    newPassword: Joi.string().required().label("New Password"),
+    newPassword: Joi.string().min(8).required().label("New Password"),
   };
 
   const { data, setData, handleChange, handleSubmit } = useForm(
@@ -53,14 +52,14 @@ const ProfileForm = ({ onOpenModal }) => {
     >
       <Input data={data} name="name" value={name} label="Full Name" />
       <Input
-        onChange={handleChange}
         data={data}
-        name="email"
         value={email}
+        name="email"
         label="Email Address"
         type="email"
       />
       <Input
+        value=""
         onChange={handleChange}
         data={data}
         name="currentPassword"
@@ -68,6 +67,7 @@ const ProfileForm = ({ onOpenModal }) => {
         type="password"
       />
       <Input
+        value=""
         onChange={handleChange}
         data={data}
         name="newPassword"
@@ -75,7 +75,7 @@ const ProfileForm = ({ onOpenModal }) => {
         type="password"
       />
       <div className="flex justify-between">
-        <Button label="Save" isValid={validate(data, schema)} />
+        <Button label="Save" isValid={true} />
         <DeleteBtn onOpenModal={onOpenModal} />
       </div>
     </form>
