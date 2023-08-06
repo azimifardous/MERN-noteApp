@@ -30,12 +30,12 @@ const LoginForm = () => {
 
   const mutation = useMutation(authService.login);
 
-  const doSubmit = async () => {
-    try {
-      await mutation.mutateAsync(data.user);
-      window.location = "/home";
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
+  const doSubmit = () => {
+    mutation.mutate(data.user, {
+      onSuccess: () => {
+        window.location = "/home";
+      },
+      onError: (ex) => {
         setData((prevData) => ({
           ...prevData,
           errors: {
@@ -43,8 +43,8 @@ const LoginForm = () => {
             email: ex.response.data,
           },
         }));
-      }
-    }
+      },
+    });
   };
 
   const isUserLoggedIn = authService.getCurrentUser();
@@ -76,11 +76,11 @@ const LoginForm = () => {
               />
               <div className="flex justify-between items-baseline">
                 <button
-                  disabled={validate(data.user, schema)}
+                  disabled={validate(data.user, schema) || mutation.isLoading}
                   type="submit"
                   className="authBtn"
                 >
-                  Log in
+                  {mutation.isLoading ? "Loginning..." : "Log in"}
                 </button>
                 <Link to="/register" className="text-sm hover:underline">
                   Sign up
