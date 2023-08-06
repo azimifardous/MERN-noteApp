@@ -18,17 +18,22 @@ function updateUser(user) {
     })
 }
 
+function getUser() {
+    return httpService.get(`/users/${currentUserId}`);
+}
+
 function deleteUser() {
     return httpService.delete(`/users/${currentUserId}`)
 }
 
-function generateNewAvatar() {
+function updateUserAvatar() {
     return httpService.patch(`/users/${currentUserId}/avatar`)
 }
 
 export default {
     register,
-    generateNewAvatar,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUser,
+    updateUserAvatar
 }

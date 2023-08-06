@@ -4,12 +4,12 @@ import UserContext from "./context/userContext";
 import useUser from "./hooks/useUser";
 
 const Dashboard = ({ children }) => {
-  const user = useUser();
+  // const user = useUser();
   return (
-    <UserContext.Provider value={user}>
+    <>
       <Sidebar />
       {children}
-    </UserContext.Provider>
+    </>
   );
 };
 

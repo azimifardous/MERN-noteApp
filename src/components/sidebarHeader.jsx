@@ -1,8 +1,13 @@
-import React, { useContext } from "react";
-import UserContext from "./context/userContext";
+import React from "react";
+import useUser from "./hooks/useUser";
+import LoadingSkeleton from "./loadingSkeleton";
 
 const SidebarHeader = () => {
-  const { avatar, name } = useContext(UserContext);
+  const { user, isLoading } = useUser();
+
+  if (isLoading) return <LoadingSkeleton />;
+
+  const { avatar, name } = user.data;
   return (
     <div className="flex flex-col items-center">
       <h1 className="font-pacifico text-white mt-5 text-2xl">Dashboard</h1>

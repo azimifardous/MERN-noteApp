@@ -1,35 +1,21 @@
-import { useState, useEffect } from "react";
+import httpService from "../../services/httpService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import registerService from "../../services/registerService";
-import authService from "../../services/authService";
 
 
 const useUser = () => {
-    const [avatar, setAvatar] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const { data: user, isLoading } = useQuery({
+        queryKey: ['user'],
+        queryFn: registerService.getUser,
+    });
 
-    useEffect(() => {
-        getUserProp("avatar", setAvatar);
-        getUserProp("name", setName);
-        getUserProp("email", setEmail);
-    }, []);
 
-    const getUserProp = (userProp, setUserProp) => {
-        const user = authService.getCurrentUser();
-        setUserProp(user[userProp]);
-    };
-
-    const getNewAvatar = async () => {
-        const { data: user } = await registerService.generateNewAvatar();
-        setAvatar(user.avatar)
-    };
 
     return {
-        name,
-        email,
-        avatar,
-        getNewAvatar
+        user,
+        isLoading,
     }
+
 }
 
 export default useUser;
