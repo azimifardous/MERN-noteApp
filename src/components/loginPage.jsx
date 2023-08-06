@@ -5,7 +5,7 @@ import authService from "../services/authService";
 import AuthForm from "./authForm";
 import { Redirect } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginPage = () => {
   const isUserLoggedIn = authService.getCurrentUser();
   if (isUserLoggedIn) return <Redirect to="/home" />;
   return (
@@ -17,4 +17,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginPage;

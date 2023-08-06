@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
-const DeleteModal = ({ isModalActive, handleClosingModal, handleDelete }) => {
+const DeleteModal = ({ isModalActive, handleClosingModal, onDelete }) => {
   return (
     <div className={isModalActive ? "visible" : "hidden"}>
       <div className="overlay active"></div>
@@ -16,7 +16,7 @@ const DeleteModal = ({ isModalActive, handleClosingModal, handleDelete }) => {
         </p>
         <div className="text-sm flex justify-around w-full">
           <button
-            onClick={handleDelete}
+            onClick={onDelete}
             className="authBtn bg-red-500 hover:bg-red-600"
           >
             Delete

@@ -1,6 +1,6 @@
-import LoginForm from "./components/loginForm";
+import LoginPage from './components/loginPage';
 import RegisterForm from "./components/registerForm";
-import Profile from "./components/profile";
+import ProfilePage from './components/profilePage';
 import Notes from "./components/notes";
 import Dashboard from './components/dashboard';
 import Logout from "./components/logout";
@@ -18,10 +18,10 @@ function App() {
       </ProtectedRoute>
       <ProtectedRoute path='/me'>
         <Dashboard>
-          <Profile />
+          <ProfilePage />
         </Dashboard>
       </ProtectedRoute>
-      <Route path='/login' component={LoginForm} />
+      <Route path='/login' component={LoginPage} />
       <Route path='/register' component={RegisterForm} />
       <Redirect from="/" to="/home" />
     </Switch >
