@@ -1,11 +1,10 @@
 import React from "react";
 import useUser from "./hooks/useUser";
-import LoadingSkeleton from "./loadingSkeleton";
 
 const SidebarHeader = () => {
   const { data: user, isLoading } = useUser();
 
-  if (isLoading) return <LoadingSkeleton />;
+  if (isLoading) return;
 
   const { avatar, name } = user.data;
   return (

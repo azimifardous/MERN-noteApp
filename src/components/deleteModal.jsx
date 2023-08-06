@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
-const DeleteModal = ({ isModalActive, handleDelete, handleClosingModal }) => {
+const DeleteModal = ({ isModalActive, handleClosingModal, handleDelete }) => {
   return (
     <div className={isModalActive ? "visible" : "hidden"}>
       <div className="overlay active"></div>
@@ -12,7 +12,7 @@ const DeleteModal = ({ isModalActive, handleDelete, handleClosingModal }) => {
           className="text-2xl sm:text-3xl mb-2"
         />
         <p className="text-sm sm:text-lg">
-          Are you sure you want to delete the account?
+          Are you sure you want to delete your account?
         </p>
         <div className="text-sm flex justify-around w-full">
           <button
