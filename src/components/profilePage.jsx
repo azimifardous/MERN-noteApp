@@ -33,7 +33,6 @@ const ProfilePage = () => {
 
   const { data: user, isLoading } = useUser();
   if (isLoading) return;
-
   return (
     <>
       <DeleteModal
@@ -44,7 +43,7 @@ const ProfilePage = () => {
       <h1 className="profileHeader">My Profile</h1>
       <div className="profileDiv">
         <div className="relative">
-          <img src={user.data.avatar} alt="avatar" className="avatar" />
+          <img src={user.avatar} alt="avatar" className="avatar" />
           <button className="avatarBtn" onClick={handleChangeAvatar}>
             <FontAwesomeIcon icon={faRotateRight} />
           </button>

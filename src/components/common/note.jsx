@@ -27,7 +27,7 @@ const Note = ({ color, onDelete, id }) => {
         )}
         <textarea
           ref={textAreaRef}
-          value={isLoading ? note.content : data.content}
+          value={note.content}
           onChange={(e) => onChange(e)}
           className="textArea"
         />

@@ -4,8 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 const useUser = () => {
     return useQuery({
         queryKey: ['user'],
-        queryFn: registerService.getUser,
-        staleTime: 60 * 60 * 1000 // 1hr
+        queryFn: async () => {
+            const { data } = await registerService.getUser();
+            return data
+        },
+        staleTime: 60 * 60 * 1000 //1hr
     });
 }
 

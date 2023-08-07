@@ -48,7 +48,7 @@ const ProfileForm = ({ onOpenModal }) => {
 
   if (isLoading) return;
 
-  const { name, email } = user.data;
+  const { name, email } = user;
   return (
     <form
       onSubmit={(e) => handleSubmit(e, doSubmit)}

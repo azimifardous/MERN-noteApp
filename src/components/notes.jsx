@@ -11,7 +11,6 @@ const Notes = () => {
       const { data } = await noteService.getNotes();
       return data;
     },
-    staleTime: 60 * 60 * 1000, // 1hr
   });
 
   const queryClient = useQueryClient();

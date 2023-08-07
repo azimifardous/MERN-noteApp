@@ -8,7 +8,6 @@ const useNote = (noteId) => {
             const { data } = await noteService.getNote(noteId)
             return data
         },
-        staleTime: 60 * 60 * 1000 // 1hr
     })
 }
 
