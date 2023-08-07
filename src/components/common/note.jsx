@@ -1,108 +1,36 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import noteService from "../../services/noteService";
+import useText from "../hooks/useText";
 
 const Note = ({ color, onDelete, id }) => {
   const textAreaRef = useRef(null);
-  const [text, setText] = useState("");
-  const [isMouseOnNote, setIsMouseOnNote] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isExceedingLimit, setIsExceedingLimit] = useState(false);
-  const maxChars = 100;
-  let prevText = "";
-
-  const autoSave = async () => {
-    try {
-      await noteService.updateNote({
-        _id: id,
-        content: text,
-      });
-    } catch (ex) {
-      console.log(ex);
-    }
-  };
-
-  const handleChange = (event) => {
-    const { value } = event.target;
-    const currentCharCount = value.length;
-
-    if (currentCharCount > maxChars) {
-      setIsExceedingLimit(true);
-      return;
-    }
-
-    setIsExceedingLimit(false);
-    prevText = value;
-    setText(value);
-  };
-
-  const handleKeyDown = (event) => {
-    // Allow the user to delete if the textarea is exceeding the limit
-    if (isExceedingLimit && event.key === "Backspace") {
-      prevText = text;
-    }
-  };
-
-  const handleClear = () => setText("");
-
-  const handleMouseOver = () => setIsMouseOnNote(true);
-
-  const handleMouseOut = () => setIsMouseOnNote(false);
-
-  useEffect(() => {
-    const autoSaveInterval = setInterval(autoSave, 5000);
-
-    return () => {
-      clearInterval(autoSaveInterval);
-    };
-  }, [text]);
-
-  useEffect(() => {
-    const textareaElement = textAreaRef.current;
-
-    const handleFocus = () => setIsFocused(true);
-    const handleBlur = () => setIsFocused(false);
-
-    getNoteContent();
-
-    textareaElement.addEventListener("focus", handleFocus);
-    textareaElement.addEventListener("blur", handleBlur);
-
-    return () => {
-      textareaElement.removeEventListener("focus", handleFocus);
-      textareaElement.removeEventListener("blur", handleBlur);
-    };
-  }, []);
-
-  const getNoteContent = async () => {
-    const { data: note } = await noteService.getNote(id);
-    setText(note.content);
-  };
+  const { note, onChange, onMouseOut, onMouseOver, onClear } =
+    useText(textAreaRef);
 
   return (
     <li className={`note ${color}`}>
       <span
         className="relative"
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
       >
-        {isMouseOnNote && !isFocused && (
+        {note.isMouseOnNote && !note.isFocused && (
           <button onClick={onDelete} className="deleteBtn">
             <FontAwesomeIcon icon={faXmark} />
           </button>
         )}
         <textarea
           ref={textAreaRef}
-          value={text}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
+          value={note.content}
+          // onKeyDown={handleKeyDown}
+          onChange={(e) => onChange(e)}
           className="textArea"
         />
         <button
-          onClick={handleClear}
-          className={`clearBtn ${isFocused ? "hidden" : ""}`}
+          onClick={onClear}
+          className={`clearBtn ${note.isFocused ? "hidden" : ""}`}
         >
           <FontAwesomeIcon icon={faTrash} />
         </button>
