@@ -1,4 +1,4 @@
-import noteService from "../services/noteService";
+import noteService from "../../services/noteService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useNotes = () => {
