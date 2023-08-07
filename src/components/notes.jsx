@@ -1,29 +1,19 @@
 import React from "react";
 import NoteBtn from "./common/noteBtn";
 import Note from "./common/note";
-import noteService from "../services/noteService";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import useNotes from "./hooks/useNotes";
 
 const Notes = () => {
-  const { data: notes, isLoading } = useQuery({
-    queryKey: ["notes"],
-    queryFn: async () => {
-      const { data } = await noteService.getNotes();
-      return data;
-    },
-  });
-
-  const queryClient = useQueryClient();
-  const addNoteMutation = useMutation((note) => noteService.addNote(note), {
-    onSuccess: () => queryClient.invalidateQueries(["notes"]),
-  });
+  const {
+    data: notes,
+    isLoading,
+    addNoteMutation,
+    deleteNoteMutation,
+  } = useNotes();
 
   const handleAddNote = (color) =>
     addNoteMutation.mutate({ content: "", color });
 
-  const deleteNoteMutation = useMutation((id) => noteService.deleteNote(id), {
-    onSuccess: () => queryClient.invalidateQueries(["notes"]),
-  });
   const handleDelete = (id) => {
     deleteNoteMutation.mutate(id);
   };
