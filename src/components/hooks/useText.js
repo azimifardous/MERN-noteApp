@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import noteService from "../../services/noteService";
 
-const useText = (textAreaRef) => {
+const useText = (textAreaRef, noteId) => {
     const MAX_CHARS = 100;
     const noteInitialData = {
+        id: noteId,
         content: "",
         isMouseOnNote: false,
         isFocused: false,
@@ -12,6 +14,20 @@ const useText = (textAreaRef) => {
     let prevText = "";
 
     const [note, setNote] = useState(noteInitialData);
+
+    const queryClient = useQueryClient();
+    const { data } = useQuery({
+        queryKey: ['note', note.id],
+        queryFn: async () => {
+            const { data } = await noteService.getNote(note.id)
+            return data
+        }
+    })
+    const updateNoteMutation = useMutation(content => noteService.updateNote({ id: note.id, content }), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['note', note.id])
+        }
+    });
 
     const onChange = (event) => {
         const { value } = event.target;
@@ -29,6 +45,7 @@ const useText = (textAreaRef) => {
             isExceedingCharLimit: false,
             content: value
         }))
+        updateNoteMutation.mutate(value);
     }
 
     const onMouseOver = () => setNote((prevData) => ({
@@ -41,10 +58,14 @@ const useText = (textAreaRef) => {
         isMouseOnNote: false,
     }))
 
-    const onClear = () => setNote((prevData) => ({
-        ...prevData,
-        content: ""
-    }))
+    const onClear = () => {
+        setNote((prevData) => ({
+            ...prevData,
+            content: ""
+        }))
+
+        updateNoteMutation.mutate("")
+    }
 
     useEffect(() => {
         const textareaElement = textAreaRef.current;

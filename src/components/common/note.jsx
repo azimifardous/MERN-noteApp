@@ -6,8 +6,10 @@ import useText from "../hooks/useText";
 
 const Note = ({ color, onDelete, id }) => {
   const textAreaRef = useRef(null);
-  const { note, onChange, onMouseOut, onMouseOver, onClear } =
-    useText(textAreaRef);
+  const { note, onChange, onMouseOut, onMouseOver, onClear } = useText(
+    textAreaRef,
+    id
+  );
 
   return (
     <li className={`note ${color}`}>
@@ -24,7 +26,6 @@ const Note = ({ color, onDelete, id }) => {
         <textarea
           ref={textAreaRef}
           value={note.content}
-          // onKeyDown={handleKeyDown}
           onChange={(e) => onChange(e)}
           className="textArea"
         />

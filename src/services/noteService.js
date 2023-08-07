@@ -20,7 +20,7 @@ function deleteNote(id) {
 }
 
 function updateNote(note) {
-    return httpService.patch(`/notes/${note._id}`, {
+    return httpService.patch(`/notes/${note.id}`, {
         content: note.content
     })
 }
