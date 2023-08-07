@@ -1,10 +1,11 @@
 const cors = require('cors');
+const { origin } = require('../config/config');
 
 module.exports = function (app) {
     app.use(cors(
-        // {
-        //     origin: "https://mern-noteapp.vercel.app",
-        //     optionsSuccessStatus: 200
-        // }
+        {
+            origin,
+            optionsSuccessStatus: 200
+        }
     ));
 };
