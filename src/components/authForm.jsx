@@ -73,7 +73,7 @@ const AuthForm = () => {
                 type="submit"
                 className="authBtn"
               >
-                {mutation.isLoading ? "Loginning..." : "Log in"}
+                {mutation.isLoading ? "Logging in..." : "Log in"}
               </button>
               <Link to="/register" className="text-sm hover:underline">
                 Sign up
