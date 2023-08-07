@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import noteService from "../../services/noteService";
 
@@ -16,16 +16,11 @@ const useText = (textAreaRef, noteId) => {
     const [note, setNote] = useState(noteInitialData);
 
     const queryClient = useQueryClient();
-    const { data } = useQuery({
-        queryKey: ['note', note.id],
-        queryFn: async () => {
-            const { data } = await noteService.getNote(note.id)
-            return data
-        }
-    })
+
     const updateNoteMutation = useMutation(content => noteService.updateNote({ id: note.id, content }), {
         onSuccess: () => {
             queryClient.invalidateQueries(['note', note.id])
+            queryClient.invalidateQueries(['notes'])
         }
     });
 
@@ -59,12 +54,11 @@ const useText = (textAreaRef, noteId) => {
     }))
 
     const onClear = () => {
+        updateNoteMutation.mutate("")
         setNote((prevData) => ({
             ...prevData,
             content: ""
         }))
-
-        updateNoteMutation.mutate("")
     }
 
     useEffect(() => {
