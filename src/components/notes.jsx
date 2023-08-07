@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useEffect, useState } from "react";
+import React from "react";
 import NoteBtn from "./common/noteBtn";
 import Note from "./common/note";
 import noteService from "../services/noteService";
@@ -33,7 +33,7 @@ const Notes = () => {
     <div className="notesDiv">
       <NoteBtn onAddNote={handleAddNote} />
       {notes.length > 0 ? (
-        <Fragment>
+        <>
           <h1 className="text-4xl font-bold mt-2 ml-4">Notes</h1>
           <ul className="notesList">
             {notes.map((note) => (
@@ -45,7 +45,7 @@ const Notes = () => {
               />
             ))}
           </ul>
-        </Fragment>
+        </>
       ) : (
         <div className="emptyNote">Add a note...</div>
       )}
