@@ -12,19 +12,23 @@ const ProfilePage = () => {
   const handleCloseModal = () => setIsModalActive(false);
   const handleOpenModal = () => setIsModalActive(true);
 
-  const mutation = useMutation(registerService.updateUserAvatar);
+  const updateUserMutation = useMutation(registerService.updateUserAvatar);
   const queryClient = useQueryClient();
 
   const handleChangeAvatar = () => {
-    mutation.mutate("", {
+    updateUserMutation.mutate("", {
       onSuccess: () => {
         queryClient.invalidateQueries(["user"]);
       },
     });
   };
 
+  const deleteUserMutation = useMutation(registerService.deleteUser);
   const handleDelete = () => {
-    // deleting the account
+    deleteUserMutation.mutate("", {
+      onSuccess: () => (window.location = "/logout"),
+      onError: (ex) => console.log(ex),
+    });
   };
 
   const { data: user, isLoading } = useUser();
