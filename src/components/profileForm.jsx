@@ -5,12 +5,13 @@ import useUser from "./hooks/useUser";
 import DeleteBtn from "./common/deleteBtn";
 import Joi from "joi-browser";
 import useForm from "./hooks/useForm";
+import registerService from "../services/registerService";
+import { validate } from "./utils/validateForm";
+import { useMutation } from "@tanstack/react-query";
 
 const ProfileForm = ({ onOpenModal }) => {
   const userData = {
     user: {
-      name: "",
-      email: "",
       currentPassword: "",
       newPassword: "",
     },
@@ -18,8 +19,6 @@ const ProfileForm = ({ onOpenModal }) => {
   };
 
   const schema = {
-    name: Joi.string(),
-    email: Joi.string().email(),
     currentPassword: Joi.string().required().label("Current Password"),
     newPassword: Joi.string().min(8).required().label("New Password"),
   };
@@ -29,15 +28,20 @@ const ProfileForm = ({ onOpenModal }) => {
     schema
   );
 
-  const doSubmit = async () => {
-    // try {
-    //   await registerService.updateUser(this.state.data);
-    //   window.location = "/";
-    // } catch (ex) {
-    //   const errors = { ...this.state.errors };
-    //   errors.currentPassword = ex.response.data;
-    //   this.setState({ errors });
-    // }
+  const mutation = useMutation(registerService.updateUser);
+  const doSubmit = () => {
+    mutation.mutate(data.user, {
+      onSuccess: () => (window.location = "/"),
+      onError: (ex) => {
+        setData((prevData) => ({
+          ...prevData,
+          errors: {
+            ...prevData.errors,
+            currentPassword: ex.response.data,
+          },
+        }));
+      },
+    });
   };
 
   const { data: user, isLoading } = useUser();
@@ -75,7 +79,7 @@ const ProfileForm = ({ onOpenModal }) => {
         type="password"
       />
       <div className="flex justify-between">
-        <Button label="Save" isValid={true} />
+        <Button label="Save" isValid={validate(data.user, schema)} />
         <DeleteBtn onOpenModal={onOpenModal} />
       </div>
     </form>
