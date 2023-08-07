@@ -79,7 +79,10 @@ const ProfileForm = ({ onOpenModal }) => {
         type="password"
       />
       <div className="flex justify-between">
-        <Button label="Save" isValid={validate(data.user, schema)} />
+        <Button
+          label={mutation.isLoading ? "Saving..." : "Save"}
+          isValid={validate(data.user, schema) || mutation.isLoading}
+        />
         <DeleteBtn onOpenModal={onOpenModal} />
       </div>
     </form>
