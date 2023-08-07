@@ -11,6 +11,7 @@ const Notes = () => {
       const { data } = await noteService.getNotes();
       return data;
     },
+    staleTime: 60 * 60 * 1000, // 1hr
   });
 
   const queryClient = useQueryClient();
@@ -28,7 +29,7 @@ const Notes = () => {
     deleteNoteMutation.mutate(id);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <div className="emptyNote">Loading Notes...</div>;
   return (
     <div className="notesDiv">
       <NoteBtn onAddNote={handleAddNote} />

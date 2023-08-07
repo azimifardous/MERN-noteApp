@@ -5,6 +5,7 @@ const useUser = () => {
     return useQuery({
         queryKey: ['user'],
         queryFn: registerService.getUser,
+        staleTime: 60 * 60 * 1000 // 1hr
     });
 }
 
