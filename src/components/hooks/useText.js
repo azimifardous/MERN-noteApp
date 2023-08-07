@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import noteService from "../../services/noteService";
+import _ from "lodash";
+import useNote from './useNote';
 
 const useText = (textAreaRef, noteId) => {
     const MAX_CHARS = 100;
@@ -14,13 +16,13 @@ const useText = (textAreaRef, noteId) => {
     let prevText = "";
 
     const [note, setNote] = useState(noteInitialData);
+    const [isDirty, setIsDirty] = useState(false);
 
     const queryClient = useQueryClient();
 
     const updateNoteMutation = useMutation(content => noteService.updateNote({ id: note.id, content }), {
         onSuccess: () => {
             queryClient.invalidateQueries(['note', note.id])
-            queryClient.invalidateQueries(['notes'])
         }
     });
 
@@ -40,8 +42,28 @@ const useText = (textAreaRef, noteId) => {
             isExceedingCharLimit: false,
             content: value
         }))
-        updateNoteMutation.mutate(value);
+        setIsDirty(true);
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (isDirty) {
+                updateNoteMutation.mutate(note.content);
+                setIsDirty(false);
+            }
+        }, 5000); // 5 seconds interval
+
+        return () => clearInterval(interval);
+    }, [isDirty, note.content]);
+
+    const { data, isLoading } = useNote(note.id)
+    useEffect(() => {
+        if (!isLoading)
+            setNote((prevData) => ({
+                ...prevData,
+                content: data.content
+            }))
+    }, [data, isLoading])
 
     const onMouseOver = () => setNote((prevData) => ({
         ...prevData,
@@ -54,12 +76,13 @@ const useText = (textAreaRef, noteId) => {
     }))
 
     const onClear = () => {
-        updateNoteMutation.mutate("")
         setNote((prevData) => ({
             ...prevData,
             content: ""
         }))
+        updateNoteMutation.mutate("")
     }
+
 
     useEffect(() => {
         const textareaElement = textAreaRef.current;

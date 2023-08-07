@@ -3,7 +3,6 @@ import { faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import useText from "../hooks/useText";
-import useNote from "../hooks/useNote";
 
 const Note = ({ color, onDelete, id }) => {
   const textAreaRef = useRef(null);
@@ -11,7 +10,6 @@ const Note = ({ color, onDelete, id }) => {
     textAreaRef,
     id
   );
-  const { data, isLoading } = useNote(id);
 
   return (
     <li className={`note ${color}`}>
