@@ -1,10 +1,14 @@
 import Input from "../common/input";
 import Joi from "joi-browser";
-import authService from "./authService";
 import useForm from "../hooks/useForm";
+import useAuthMutation from "./useAuthMutation";
 import { Link } from "react-router-dom";
 import { validate } from "../utils/validateForm";
-import { useMutation } from "@tanstack/react-query";
+
+const schema = {
+  email: Joi.string().email().required().label("Email"),
+  password: Joi.string().required().label("Password"),
+};
 
 const AuthForm = () => {
   const userData = {
@@ -15,32 +19,18 @@ const AuthForm = () => {
     errors: {},
   };
 
-  const schema = {
-    email: Joi.string().email().required().label("Email"),
-    password: Joi.string().required().label("Password"),
-  };
-
   const { data, setData, handleChange, handleSubmit } = useForm(
     userData,
     schema
   );
-
-  const mutation = useMutation(authService.login);
+  const { mutation, handleError } = useAuthMutation();
 
   const doSubmit = () => {
     mutation.mutate(data.user, {
       onSuccess: () => {
         window.location = "/home";
       },
-      onError: (ex) => {
-        setData((prevData) => ({
-          ...prevData,
-          errors: {
-            ...prevData.errors,
-            email: ex.response.data,
-          },
-        }));
-      },
+      onError: (ex) => handleError(ex, setData),
     });
   };
 
