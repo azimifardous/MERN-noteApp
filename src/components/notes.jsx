@@ -19,6 +19,7 @@ const Notes = () => {
   };
 
   if (isLoading) return <div className="emptyNote">Loading Notes...</div>;
+
   return (
     <div className="notesDiv">
       <NoteBtn onAddNote={handleAddNote} />
