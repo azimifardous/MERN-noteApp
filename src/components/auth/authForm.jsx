@@ -23,15 +23,10 @@ const AuthForm = () => {
     userData,
     schema
   );
-  const { mutation, handleError } = useAuthMutation();
+  const mutation = useAuthMutation(setData);
 
   const doSubmit = () => {
-    mutation.mutate(data.user, {
-      onSuccess: () => {
-        window.location = "/home";
-      },
-      onError: (ex) => handleError(ex, setData),
-    });
+    mutation.mutate(data.user);
   };
 
   return (

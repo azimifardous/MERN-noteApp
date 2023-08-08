@@ -1,20 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
 import authService from "../../services/authService";
 
-const useAuthMutation = () => {
-    const mutation = useMutation(authService.login);
-    const handleError = (error, setData) => setData((prevData) => ({
-        ...prevData,
-        errors: {
-            ...prevData.errors,
-            email: error.response.data,
-        },
-    }));
-
-    return {
-        mutation,
-        handleError
-    }
+const useAuthMutation = (setData) => {
+    return useMutation(authService.login, {
+        onSuccess: () => window.location = "/home",
+        onError: ex => setData((prevData) => ({
+            ...prevData,
+            errors: {
+                ...prevData.errors,
+                email: ex.response.data,
+            }
+        }))
+    })
 }
 
 export default useAuthMutation;

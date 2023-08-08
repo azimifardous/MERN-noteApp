@@ -5,7 +5,7 @@ import useUser from "../hooks/useUser";
 import DeleteBtn from "../common/deleteBtn";
 import Joi from "joi-browser";
 import useForm from "../hooks/useForm";
-import registerService from "../registration/registerService";
+import registerService from "../../services/registerService";
 import { validate } from "../utils/validateForm";
 import { useMutation } from "@tanstack/react-query";
 

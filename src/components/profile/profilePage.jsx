@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import registerService from "../registration/registerService";
+import registerService from "../../services/registerService";
 import DeleteModal from "./deleteModal";
 import ProfileForm from "./profileForm";
 import useUser from "../hooks/useUser";

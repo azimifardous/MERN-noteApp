@@ -2,13 +2,12 @@ import React from "react";
 import Joi from "joi-browser";
 import Header from "../common/header";
 import Footer from "../common/footer";
-import registerService from "./registerService";
 import authService from "../../services/authService";
 import useForm from "../hooks/useForm";
+import useRegMutation from "./useRegMutation";
 import Input from "../common/input";
 import { Link, Redirect } from "react-router-dom";
 import { validate } from "../utils/validateForm";
-import { useMutation } from "@tanstack/react-query";
 
 const schema = {
   email: Joi.string().email().required().label("Email"),
@@ -31,24 +30,9 @@ const RegisterForm = () => {
     schema
   );
 
-  const mutation = useMutation(registerService.register);
-
-  const doSubmit = async () => {
-    mutation.mutate(data.user, {
-      onSuccess: (res) => {
-        authService.loginWithJWT(res.headers["x-auth-token"]);
-        window.location = "/";
-      },
-      onError: (ex) => {
-        setData((prevData) => ({
-          ...prevData,
-          errors: {
-            ...prevData.errors,
-            name: ex.response.data,
-          },
-        }));
-      },
-    });
+  const mutation = useRegMutation(setData);
+  const doSubmit = () => {
+    mutation.mutate(data.user);
   };
 
   const isUserLoggedIn = authService.getCurrentUser();
