@@ -1,4 +1,4 @@
-import httpService from "../../services/httpService";
+import httpService from "./httpService";
 import jwtDecode from 'jwt-decode';
 
 httpService.setJWT(getJWT());
@@ -24,6 +24,7 @@ function getJWT() {
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem('activeItem');
+    window.location = "/login";
 }
 
 function getCurrentUser() {

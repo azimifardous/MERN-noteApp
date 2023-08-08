@@ -1,5 +1,5 @@
 import httpService from '../../services/httpService';
-import authService from '../auth/authService';
+import authService from '../../services/authService';
 
 const { _id: currentUserId } = authService.getCurrentUser() || "";
 

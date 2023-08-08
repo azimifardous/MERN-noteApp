@@ -3,12 +3,18 @@ import Joi from "joi-browser";
 import Header from "../common/header";
 import Footer from "../common/footer";
 import registerService from "./registerService";
-import authService from "../auth/authService";
+import authService from "../../services/authService";
 import useForm from "../hooks/useForm";
 import Input from "../common/input";
 import { Link, Redirect } from "react-router-dom";
 import { validate } from "../utils/validateForm";
 import { useMutation } from "@tanstack/react-query";
+
+const schema = {
+  email: Joi.string().email().required().label("Email"),
+  password: Joi.string().min(8).required().label("Password"),
+  name: Joi.string().max(64).required().label("Name"),
+};
 
 const RegisterForm = () => {
   const userData = {
@@ -18,12 +24,6 @@ const RegisterForm = () => {
       name: "",
     },
     errors: {},
-  };
-
-  const schema = {
-    email: Joi.string().email().required().label("Email"),
-    password: Joi.string().min(8).required().label("Password"),
-    name: Joi.string().max(64).required().label("Name"),
   };
 
   const { data, setData, handleChange, handleSubmit } = useForm(

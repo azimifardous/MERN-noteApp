@@ -3,14 +3,12 @@ import RegisterForm from "./components/registration/registerForm";
 import ProfilePage from './components/profile/profilePage';
 import Notes from "./components/notes/notes";
 import Dashboard from './components/dashboard/dashboard';
-import Logout from "./components/registration/logout";
 import ProtectedRoute from "./components/common/protectedRoute";
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
     <Switch>
-      <Route path="/logout" component={Logout} />
       <ProtectedRoute path='/home'>
         <Dashboard>
           <Notes />

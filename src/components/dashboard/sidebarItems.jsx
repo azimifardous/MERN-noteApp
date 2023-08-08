@@ -6,6 +6,7 @@ import {
   faRightFromBracket,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
+import authService from "../../services/authService";
 
 const SidebarItems = () => {
   const [activeItem, setActiveItem] = useState(
@@ -37,11 +38,9 @@ const SidebarItems = () => {
           Profile
         </Link>
       </li>
-      <li className="logout">
+      <li className="logout" onClick={() => authService.logout()}>
         <FontAwesomeIcon icon={faRightFromBracket} />
-        <Link to="/logout" className="ml-5">
-          Log out
-        </Link>
+        <span className="ml-5">Logout</span>
       </li>
     </ul>
   );
