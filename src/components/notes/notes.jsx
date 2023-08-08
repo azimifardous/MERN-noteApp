@@ -1,6 +1,6 @@
 import React from "react";
 import NoteBtn from "../common/noteBtn";
-import Note from "../common/note";
+import Note from "./note";
 import useNotes from "../hooks/useNotes";
 
 const Notes = () => {

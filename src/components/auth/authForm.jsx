@@ -23,6 +23,7 @@ const AuthForm = () => {
     userData,
     schema
   );
+
   const mutation = useAuthMutation(setData);
 
   const doSubmit = () => {

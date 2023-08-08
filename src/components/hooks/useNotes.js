@@ -12,10 +12,16 @@ const useNotes = () => {
 
     const queryClient = useQueryClient();
     const addNoteMutation = useMutation((note) => noteService.addNote(note), {
+        onMutate: (newNote) => queryClient.setQueryData(['notes'], (oldNotes) => [...oldNotes, newNote]),
         onSuccess: () => queryClient.invalidateQueries(["notes"]),
     });
 
     const deleteNoteMutation = useMutation((id) => noteService.deleteNote(id), {
+        onMutate: (deletedId) =>
+            queryClient.setQueryData(["notes"], (oldNotes) =>
+                oldNotes.filter((note) => note.id !== deletedId)
+            )
+        ,
         onSuccess: () => queryClient.invalidateQueries(["notes"]),
     });
 
