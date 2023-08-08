@@ -1,13 +1,13 @@
 import React from "react";
 import Joi from "joi-browser";
-import Header from "./common/header";
-import Footer from "./common/footer";
-import registerService from "../services/registerService";
-import authService from "../services/authService";
-import useForm from "./hooks/useForm";
-import Input from "./common/input";
+import Header from "../common/header";
+import Footer from "../common/footer";
+import registerService from "./registerService";
+import authService from "../auth/authService";
+import useForm from "../hooks/useForm";
+import Input from "../common/input";
 import { Link, Redirect } from "react-router-dom";
-import { validate } from "./utils/validateForm";
+import { validate } from "../utils/validateForm";
 import { useMutation } from "@tanstack/react-query";
 
 const RegisterForm = () => {

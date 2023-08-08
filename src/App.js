@@ -1,9 +1,9 @@
-import LoginPage from './components/loginPage';
-import RegisterForm from "./components/registerForm";
-import ProfilePage from './components/profilePage';
-import Notes from "./components/notes";
-import Dashboard from './components/dashboard';
-import Logout from "./components/logout";
+import LoginPage from './components/auth/loginPage';
+import RegisterForm from "./components/registration/registerForm";
+import ProfilePage from './components/profile/profilePage';
+import Notes from "./components/notes/notes";
+import Dashboard from './components/dashboard/dashboard';
+import Logout from "./components/registration/logout";
 import ProtectedRoute from "./components/common/protectedRoute";
 import { Redirect, Route, Switch } from 'react-router-dom';
 

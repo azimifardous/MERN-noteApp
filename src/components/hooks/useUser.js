@@ -1,4 +1,4 @@
-import registerService from "../../services/registerService";
+import registerService from "../registration/registerService";
 import { useQuery } from "@tanstack/react-query";
 
 const useUser = () => {

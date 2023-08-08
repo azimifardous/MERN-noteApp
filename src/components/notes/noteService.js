@@ -1,4 +1,4 @@
-import httpService from './httpService';
+import httpService from '../../services/httpService';
 
 function getNotes() {
     return httpService.get("/notes");

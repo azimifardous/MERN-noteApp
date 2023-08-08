@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import noteService from "../../services/noteService";
+import noteService from "../notes/noteService";
 import _ from "lodash";
 import useNote from './useNote';
 

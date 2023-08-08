@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import registerService from "../services/registerService";
+import registerService from "../registration/registerService";
 import DeleteModal from "./deleteModal";
 import ProfileForm from "./profileForm";
-import useUser from "./hooks/useUser";
+import useUser from "../hooks/useUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

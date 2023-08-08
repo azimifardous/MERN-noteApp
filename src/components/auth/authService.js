@@ -1,4 +1,4 @@
-import httpService from "./httpService";
+import httpService from "../../services/httpService";
 import jwtDecode from 'jwt-decode';
 
 httpService.setJWT(getJWT());

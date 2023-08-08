@@ -1,5 +1,5 @@
 import React from "react";
-import useUser from "./hooks/useUser";
+import useUser from "../hooks/useUser";
 
 const SidebarHeader = () => {
   const { data: user, isLoading } = useUser();

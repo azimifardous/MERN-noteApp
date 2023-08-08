@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "./common/header";
-import Footer from "./common/footer";
-import authService from "../services/authService";
+import Header from "../common/header";
+import Footer from "../common/footer";
+import authService from "./authService";
 import AuthForm from "./authForm";
 import { Redirect } from "react-router-dom";
 

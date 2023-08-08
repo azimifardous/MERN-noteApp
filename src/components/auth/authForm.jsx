@@ -1,9 +1,9 @@
-import Input from "./common/input";
+import Input from "../common/input";
 import Joi from "joi-browser";
-import authService from "../services/authService";
-import useForm from "./hooks/useForm";
+import authService from "./authService";
+import useForm from "../hooks/useForm";
 import { Link } from "react-router-dom";
-import { validate } from "./utils/validateForm";
+import { validate } from "../utils/validateForm";
 import { useMutation } from "@tanstack/react-query";
 
 const AuthForm = () => {
