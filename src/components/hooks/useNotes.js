@@ -19,7 +19,7 @@ const useNotes = () => {
     const deleteNoteMutation = useMutation((id) => noteService.deleteNote(id), {
         onMutate: (deletedId) =>
             queryClient.setQueryData(["notes"], (oldNotes) =>
-                oldNotes.filter((note) => note.id !== deletedId)
+                oldNotes.filter((note) => note._id !== deletedId)
             )
         ,
         onSuccess: () => queryClient.invalidateQueries(["notes"]),
